@@ -15,7 +15,7 @@ exports.search_trips = asyncHandler(async (req, res) => {
 
         // Filtering by destination if provided
         if (req.query.destination) {
-            const destination = await Destination.findOne({ title: req.query.destination }).exec();
+            const destination = await Destination.findOne({ _id: req.query.destination }).exec();
             if (destination) {
                 query = query.where('destinations').in([destination._id]);
             }

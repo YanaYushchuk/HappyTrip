@@ -7,11 +7,6 @@ exports.destination_list = asyncHandler(async (req, res, next) => {
     res.send(allDestinations);
 });
 
-// Відображення форми для створення напрямку на GET-запит.
-exports.destination_create_get = asyncHandler(async (req, res, next) => {
-    res.send("NOT IMPLEMENTED: Destination create GET");
-});
-
 // Обробка створення напрямку на POST-запит.
 exports.destination_create_post = asyncHandler(async (req, res, next) => {
     const destination_details = {
@@ -21,11 +16,6 @@ exports.destination_create_post = asyncHandler(async (req, res, next) => {
     const destination = new Destination(destination_details );
     const savedDestination = await destination.save();
     res.status(201).send(savedDestination);
-});
-
-// Відображення форми для видалення напрямку на GET-запит.
-exports.destination_delete_get = asyncHandler(async (req, res, next) => {
-    res.send("NOT IMPLEMENTED: Destination delete GET");
 });
 
 // Обробка видалення напрямку на DELETE-запит.
@@ -40,11 +30,6 @@ exports.destination_delete = asyncHandler(async (req, res, next) => {
     } catch (error) {
         next(error);
     }
-});
-
-// Відображення форми для оновлення напрямку на GET-запит.
-exports.destination_update_get = asyncHandler(async (req, res, next) => {
-    res.send("NOT IMPLEMENTED: Destination update GET");
 });
 
 // Обробка оновлення напрямку на PATCH-запит.

@@ -5,8 +5,7 @@ const asyncHandler = require("express-async-handler");
 exports.user_get = asyncHandler(async (req, res, next) => {
     try {
         // Find the trip by user_ID
-        const user = await User.findById(req.params.user_id)
-            .exec();
+        const user = await User.findOne({ user_id: req.params.id });
 
         // If no trip found, send a 404 response
         if (!user) {
@@ -28,7 +27,7 @@ exports.user_create_post = asyncHandler(async (req, res, next) => {
         firstname: req.body.firstname,
         lastname: req.body.lastname
     };
-    const user = new User(user_details );
+    const user = new User(user_details);
     const savedUser = await user.save();
     res.status(201).send(savedUser);
 });
@@ -36,7 +35,7 @@ exports.user_create_post = asyncHandler(async (req, res, next) => {
 // Обробка оновлення напрямку на PATCH-запит.
 exports.user_update = asyncHandler(async (req, res, next) => {
     try {
-        const user = await User.findById(req.params.id);
+        const user = await User.findOne({ user_id: req.params.id });
         if (!user) {
             return res.status(404).send('User не знайдено');
         }

@@ -1,27 +1,30 @@
 import React, { createContext, useState, useEffect } from 'react';
+import { useNavigate } from "react-router-dom";
+import { Wallet } from "./wallets/near-wallet.js"
 import axios from "axios";
+
+const CONTRACT_NAME = "yana03.testnet"
+const wallet = new Wallet({ createAccessKeyFor: CONTRACT_NAME })
 
 export const UserContext = createContext();
 
-const UserContextProvider = ({ children, wallet }) => {
+export default function UserContextProvider({ children }) {
   const [isSignedIn, setIsSignedIn] = useState(false);
-  const [userId, setUserId] = useState("");
   const [user, setUser] = useState(null);
+
+  const navigate = useNavigate();
 
   useEffect(() => {
     const initFunction = async () => {
       const isSignedIn = await wallet.startUp();
       setIsSignedIn(isSignedIn);
-      if(isSignedIn){
-        setUserId(wallet.accountId);
-        getUser(userId);
-      } else {
-        setUserId("");
-        setUser(null);
+      if (isSignedIn) {
+        getUser();
+        console.log(user);
       }
     };
     initFunction();
-  }, [wallet]);
+  }, []);
 
   const signIn = () => {
     wallet.signIn();
@@ -33,18 +36,24 @@ const UserContextProvider = ({ children, wallet }) => {
     setIsSignedIn(false);
   };
 
-  async function getUser (user_id) 
-  {
-    await axios.get('/userManager/user/' + user_id).then(({data}) => {
+  async function getUser() {
+    try {
+      await axios.get('/userManager/user/' + wallet.accountId).then(({ data }) => {
         setUser(data);
       });
+    } catch (err) {
+      if (err.response.status === 404) {
+        await axios.post('/userManager/user', { user_id: wallet.accountId }).then(({ data }) => {
+          setUser(data);
+        });
+      }
+    }
+
   }
 
   return (
-    <UserContext.Provider value={{ isSignedIn, signIn, signOut }}>
+    <UserContext.Provider value={{ isSignedIn, signIn, signOut, user, setUser }}>
       {children}
     </UserContext.Provider>
   );
 };
-
-export default UserContextProvider;

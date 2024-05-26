@@ -1,19 +1,10 @@
-import React, { useContext, useEffect } from 'react';
+import React, { useContext } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { UserContext } from './UserContext.jsx';
 import Button from "@mui/material/Button";
 
 export default function Header() {
-        const navigate = useNavigate();
-    const { isSignedIn, signIn} = useContext(UserContext);
-
-    useEffect(() => {
-        if (isSignedIn) {
-            navigate('/account');
-        } else {
-            // navigate('/login');
-        }
-    }, [isSignedIn, navigate]);
+    const { isSignedIn, signIn } = useContext(UserContext);
 
     return (
         <div>
