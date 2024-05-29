@@ -1,0 +1,46 @@
+/* Внутрішні відступи та рамка для контейнера */
+.grid > div {
+    transition: all 0.3s ease;
+}
+
+/* Шрифт для заголовків */
+.grid > div h2 {
+    font-family: 'Arial', sans-serif;
+    color: #333;
+}
+
+/* Стилізація тексту та рамка для додаткової інформації */
+.grid > div p {
+    margin: 10px 0;
+    font-family: 'Arial', sans-serif;
+    color: #555;
+    border-bottom: 1px solid #ccc;
+    padding-bottom: 5px;
+}
+
+/* Стилізація ціни */
+.grid > div p:first-of-type {
+    font-size: 1.2em;
+    font-weight: bold;
+    color: #ff6600; /* або будь-який інший колір */
+}
+
+/* Підкреслення при виборі заголовка */
+.grid > div h2:hover {
+    text-decoration: underline;
+}
+
+/* Додаткові стилі для маршруту */
+.grid .flex {
+    display: flex;
+    align-items: center;
+    gap: 4px;
+    background-color: #f2f2f2;
+    padding: 12px;
+    border-radius: 12px;
+    transition: background-color 0.3s ease;
+}
+
+.grid .flex:hover {
+    background-color: #e5e5e5;
+}

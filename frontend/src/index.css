@@ -12,3 +12,4 @@ button.pr{
   background-color: 'lightblue';
   @apply bg-primary p-2 w-full text-white;
 }
+
