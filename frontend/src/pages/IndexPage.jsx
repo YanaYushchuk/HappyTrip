@@ -17,15 +17,18 @@ export default function IndexPage() {
   };
 
   return (
-    <div className="mt-8 grid gap-x-6 gap-y-8 grid-cols-2 md:grid-cols-3 lg:grid-cols-3">
-      {destinations.length > 0 && destinations.map(destination => (
-        <Link to={`/search-trip?${buildQueryString({ destination: destination._id })}`}>
-          <div className="mb-2 rounded-2xl flex">
-            <Image className="rounded-2xl object-cover aspect-square" src={"../../images/destinations/" + destination.image} alt="" />
-          </div>
-          <h2 className="font-bold text-center">{destination.title}</h2>
-        </Link>
-      ))}
+    <div className="mt-8">
+      <h2 className="text-3xl  flex justify-center font-bold mb-6 text-gray-900 uppercase tracking-wider ">Напрямки</h2>
+      <div className="grid gap-x-6 gap-y-8 grid-cols-2 md:grid-cols-3 lg:grid-cols-3">
+        {destinations.length > 0 && destinations.map(destination => (
+          <Link to={`/search-trip?${buildQueryString({ destination: destination._id })}`}>
+            <div className="mb-2 rounded-2xl flex">
+              <Image className="rounded-2xl object-cover aspect-square" src={"../../images/destinations/" + destination.image} alt="" />
+            </div>
+            <h2 className="font-bold text-center">{destination.title}</h2>
+          </Link>
+        ))}
+      </div>
     </div>
   );
 }

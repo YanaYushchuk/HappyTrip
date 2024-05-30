@@ -8,19 +8,19 @@ exports.trip_list = asyncHandler(async (req, res, next) => {
     res.send(allTrips);
 });
 
-// Search Trips with filters and sorting
 exports.search_trips = asyncHandler(async (req, res) => {
     try {
         let query = Trip.find();
 
-        // Filtering by destination if provided
+        // Фільтрація за пунктом призначення, якщо вказано
         if (req.query.destination) {
             const destination = await Destination.findOne({ _id: req.query.destination }).exec();
             if (destination) {
                 query = query.where('destinations').in([destination._id]);
             }
         }
-        // Sorting by price or alphabetically
+
+        // Сортування за ціною або алфавітом
         let sortCriteria = {};
         if (req.query.price) {
             sortCriteria.price = req.query.price === 'desc' ? -1 : 1;
@@ -32,20 +32,33 @@ exports.search_trips = asyncHandler(async (req, res) => {
             query = query.sort(sortCriteria);
         }
 
-        // Pagination
+        // Пагінація
         const page = parseInt(req.query.page, 10) || 1;
         const limit = parseInt(req.query.limit, 10) || 10;
         const skip = (page - 1) * limit;
 
+        const totalTrips = await Trip.countDocuments(query.getFilter());
+        const totalPages = Math.ceil(totalTrips / limit);
+
         query = query.skip(skip).limit(limit);
 
-        // Execute query with pagination
+        // Виконання запиту з пагінацією
         const trips = await query.exec();
-        res.send(trips);
+        
+        // Лог для перевірки відповіді
+        console.log('Запит:', req.query);
+        console.log('Знайдено подорожей:', trips.length);
+        console.log('Усього сторінок:', totalPages);
+
+        res.json({ trips, totalPages });
     } catch (error) {
-        res.status(500).send('Server error during trip search');
+        console.error('Помилка сервера під час пошуку подорожей:', error);
+        res.status(500).json({ message: 'Server error during trip search' });
     }
 });
+
+
+
 
 
 // Display detail page for a specific Trip.

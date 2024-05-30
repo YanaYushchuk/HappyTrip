@@ -7,6 +7,21 @@ exports.destination_list = asyncHandler(async (req, res, next) => {
     res.send(allDestinations);
 });
 
+
+// Відображення детальної інформації про конкретну дестінацію за її ID
+exports.destination_detail = asyncHandler(async (req, res, next) => {
+    try {
+        const destination = await Destination.findById(req.params.id);
+        if (!destination) {
+            return res.status(404).json({ message: 'Destination not found' });
+        }
+        res.json(destination);
+    } catch (error) {
+        res.status(500).json({ message: error.message });
+    }
+});
+
+
 // Обробка створення напрямку на POST-запит.
 exports.destination_create_post = asyncHandler(async (req, res, next) => {
     const destination_details = {

@@ -11,6 +11,7 @@ import UserContextProvider from './UserContext.jsx';
 import AccountPage from './pages/AccountPage.jsx';
 import SearchTripPage from './pages/SearchTripPage.jsx';
 import TripPage from './pages/TripPage.jsx';
+import DestinationPage from './pages/DestinationPage.jsx';
 
 axios.defaults.baseURL = 'http://localhost:8080';
 
@@ -25,6 +26,7 @@ function App() {
           <Route path="/account/:subpage?" element={<AccountPage />} />
           <Route path="/search-trip" element={<SearchTripPage />} />
           <Route path="/trip/:id" element={<TripPage />} />
+          <Route path="/destination/:id" element={<DestinationPage />} /> {/* Додайте цей маршрут */}
         </Route>
       </Routes>
     </UserContextProvider>

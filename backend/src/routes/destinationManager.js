@@ -15,5 +15,9 @@ router.delete('/destination/:id', destination_controller.destination_delete);
 
 // PATCH запит для оновлення напрямку
 router.patch('/destination/:id', destination_controller.destination_update);
+
+// GET запит для отримання детальної інформації про подорож за її ID
+router.get('/destination/:id', destination_controller.destination_detail);
+
 // Експортуємо роутер
 module.exports = router;

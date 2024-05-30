@@ -11,3 +11,13 @@ export class Ticket {
     this.text = text;
   }
 }
+
+export class PostedMessage {
+  sender: string;
+  text: string;
+
+  constructor({ sender, text }: PostedMessage) {
+    this.sender = sender;
+    this.text = text;
+  }
+}
