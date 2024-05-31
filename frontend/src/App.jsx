@@ -27,7 +27,7 @@ function App() {
           <Route path="/account/:subpage?" element={<AccountPage />} />
           <Route path="/search-trip" element={<SearchTripPage />} />
           <Route path="/trip/:id" element={<TripPage />} />
-          <Route path="/destination/:id" element={<DestinationPage />} /> {/* Додайте цей маршрут */}
+          <Route path="/destination/:id" element={<DestinationPage />} /> 
           <Route path="/account/bookings" element={<BookingsPage />} />
         </Route>
       </Routes>

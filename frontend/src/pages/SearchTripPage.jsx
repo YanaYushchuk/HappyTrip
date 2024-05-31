@@ -3,7 +3,6 @@ import { Link, useSearchParams } from "react-router-dom";
 import axios from "axios";
 import Image from "../Image.jsx";
 import "./SearchTripPage.css"; // Шлях до вашого CSS файлу
-import {data} from "autoprefixer";
 
 function SearchTripPage() {
     const [trips, setTrips] = useState([]);
@@ -23,11 +22,8 @@ function SearchTripPage() {
         // Отримання списку подорожей з сервера з урахуванням поточних параметрів пошуку
         axios.get('/tripManager/search-trips', {
             params: {
-                destination: searchParams.get("destination"),
-                price: searchParams.get("price"),
-                alphabetical: searchParams.get("alphabetical"),
-                page: searchParams.get("page"),
-                limit: 2 // Display 5 trips per page
+                ...Object.fromEntries(searchParams), // Перетворюємо URLSearchParams на об'єкт
+                limit: 2 // Відображати 2 подорожі на сторінку
             }
         }).then(({ data }) => {
             setTrips(data.trips);
@@ -35,31 +31,36 @@ function SearchTripPage() {
             console.error('Помилка під час отримання списку подорожей:', error);
         });
         
-        
     }, [searchParams]);
 
     const goToPage = (pageNumber) => {
-        setSearchParams({ ...searchParams, page: pageNumber });
+        setSearchParams({ ...Object.fromEntries(searchParams), page: pageNumber });
     };
 
     const handleSortChange = (e) => {
         const selectedValue = e.target.value;
-        setSearchParams({ ...searchParams, price: selectedValue });
+        const newSearchParams = new URLSearchParams(searchParams);
+        newSearchParams.set("price", selectedValue);
+        setSearchParams(newSearchParams);
     };
 
     const handleAlphabeticalSortChange = (e) => {
         const selectedValue = e.target.value;
+        const newSearchParams = new URLSearchParams(searchParams);
         let alphabeticalValue = "";
         if (selectedValue === "asc") {
             alphabeticalValue = "asc";
         } else if (selectedValue === "desc") {
             alphabeticalValue = "desc";
         }
-        setSearchParams({ ...searchParams, alphabetical: alphabeticalValue });
+        newSearchParams.set("alphabetical", alphabeticalValue);
+        setSearchParams(newSearchParams);
     };
 
     const handleDestinationChange = (e) => {
-        setSearchParams({ ...searchParams, destination: e.target.value });
+        const newSearchParams = new URLSearchParams(searchParams);
+        newSearchParams.set("destination", e.target.value);
+        setSearchParams(newSearchParams);
     };
 
     const currentPage = Number(searchParams.get("page")) || 1;
@@ -81,7 +82,7 @@ function SearchTripPage() {
                 <select id="destination-select" className="sorting-select" onChange={handleDestinationChange} value={searchParams.get("destination") || ""}>
                     <option value="">Оберіть дестінацію</option>
                     {destinations.map(destination => (
-                        <option value={destination._id}>{destination.title}</option>
+                        <option key={destination._id} value={destination._id}>{destination.title}</option>
                     ))}
                 </select>
             </div>

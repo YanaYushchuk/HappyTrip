@@ -37,7 +37,7 @@ export default function Header() {
                     </Link>
                 ) : (
                     // Якщо користувач не зареєстрований, відображаємо кнопку "Логін"
-                    <Button onClick={signIn} variant="contained" sx={{ borderRadius: "25px", width: "100%" }}>Log in</Button>
+                    <Button onClick={signIn} variant="contained" sx={{ borderRadius: "25px" }}>Log in</Button>
                 )}
             </header>
         </div>

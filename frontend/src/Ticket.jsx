@@ -1,36 +1,32 @@
 import PropTypes from 'prop-types';
+import './Ticket.css';
 
 export default function Ticket({ trip, onSubmit }) {
   return (
-    <form onSubmit={onSubmit}>
-      <fieldset id="fieldset">
-        <div>
-        <p>Reservation:</p>
-        <input
-            id="text"
+    <form className="ticket-form" onSubmit={onSubmit}>
+      <fieldset id="fieldset" className="ticket-fieldset">
+        <div className="booking-heading">
+          <label className="ticket-label bigger-text">Бронювання</label>
+          <br />
+          <label htmlFor="title" className="ticket-label">Назва:</label>
+          <input
+            id="title"
+            type="text"
             required
             disabled
             defaultValue={trip.title}
+            className="ticket-input"
           />
-        {/* <p id="text" value={trip.title} className="highlight">
-          {trip.title}
-        </p> */}
         </div>
-        <div>
-        <input
-            defaultValue={trip.price}
-            id="price"            
-            type="number"
-            disabled
-          />
-        {/* <p id="price" value={trip.price} className="highlight">
-          {trip.price}
-        </p> */}
-          <span title="NEAR Tokens">Ⓝ</span>
+        <div className="price-container">
+          <label htmlFor="price" className="ticket-label">Ціна: <span className="highlight">{trip.price} Ⓝ</span></label>
         </div>
-        <button type="submit">
-          Buy
-        </button>
+
+        <div className="button-container">
+          <button type="submit" className="round-button" onClick={onSubmit}>
+            Забронювати
+          </button>
+        </div>
       </fieldset>
     </form>
   );

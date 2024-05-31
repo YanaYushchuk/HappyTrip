@@ -83,9 +83,9 @@ export default function TripPage() {
                     <Ticket onSubmit={onSubmit} trip={trip} />
                 ) : (
                     // Якщо користувач не зареєстрований, відображаємо кнопку "Логін"
-                    <p>You are not logged in.</p>
+                    <p>Щоб забронювати потрібно авторизуватися.</p>
                 )}
-                {/* <CommentForm /> Додання форми коментарів */}
+                {/* <CommentForm />  */}
             </div>
         </div>
     );

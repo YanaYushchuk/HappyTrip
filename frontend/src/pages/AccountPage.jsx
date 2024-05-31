@@ -29,7 +29,7 @@ export default function AccountPage() {
       {subpage === 'profile' && (
         <div className="text-center max-w-lg mx-auto">
           Logged in as {user.user_id} <br />
-          <button onClick={signOut} className="primary max-w-sm mt-2">Logout</button>
+          <button onClick={signOut} className="priminline-flex gap-1 py-2 px-6 bg-[#76adff] rounded-full text-white max-w-sm mt-2">Logout</button>
         </div>
       )}
       {subpage === 'bookings' && (

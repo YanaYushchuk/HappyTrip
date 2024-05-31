@@ -15,16 +15,16 @@ export default function Form({ onSubmit, currentAccountId }) {
           />
         </p>
         <p>
-          <label htmlFor="donation">Donation (optional):</label>
-          <input
+         
+          {/* <input
             autoComplete="off"
             defaultValue={'0'}
             id="donation"
             min="0"
             step="0.01"
             type="number"
-          />
-          <span title="NEAR Tokens">Ⓝ</span>
+          /> */}
+          {/* <span title="NEAR Tokens">Ⓝ</span> */}
         </p>
         <button type="submit">
           Sign

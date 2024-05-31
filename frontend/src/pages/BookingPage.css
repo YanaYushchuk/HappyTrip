@@ -1,0 +1,51 @@
+.ticket-wrapper {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    border: 2px solid #ccc;
+    padding: 20px;
+    margin: 20px;
+  }
+  
+ 
+  .ticket-container {
+    margin-bottom: 20px;
+  }
+  
+ 
+  .ticket-details {
+    flex: 1;
+    padding: 20px;
+  }
+  
+  .ticket-title {
+    font-weight: bold;
+    font-size: 24px;
+  }
+  
+  .ticket-price,
+  .ticket-owner {
+    font-size: 18px;
+  }
+  
+    
+  .download-buttons {
+    margin-top: 20px;
+  }
+  
+  .download-button {
+    margin-right: 10px;
+    padding: 10px 20px;
+    font-size: 16px;
+    font-weight: bold;
+    background-color: #007bff;
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+  }
+  
+  .download-button:hover {
+    background-color: #0056b3;
+  }
+  
