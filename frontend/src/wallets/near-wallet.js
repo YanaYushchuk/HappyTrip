@@ -12,7 +12,6 @@ import { setupWalletSelector } from '@near-wallet-selector/core';
 import { setupLedger } from '@near-wallet-selector/ledger';
 import { setupMyNearWallet } from '@near-wallet-selector/my-near-wallet';
 import { setupHereWallet } from '@near-wallet-selector/here-wallet';
-import { useNavigate } from "react-router-dom";
 
 const THIRTY_TGAS = '30000000000000';
 const NO_DEPOSIT = '0';
@@ -61,7 +60,7 @@ export class Wallet {
   signOut() {
     this.wallet.signOut();
     this.wallet = this.accountId = this.createAccessKeyFor = null;
-    window.location.replace(window.location.origin);
+    window.location.replace(window.location.origin + window.location.pathname);
   }
 
   // Make a read-only call to retrieve information from the network

@@ -1,3 +1,5 @@
+import { AccountId } from "near-sdk-js";
+
 export const POINT_ONE = '100000000000000000000000';
 
 export class Ticket {

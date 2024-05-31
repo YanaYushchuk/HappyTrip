@@ -3,6 +3,7 @@ import { Link, useSearchParams } from "react-router-dom";
 import axios from "axios";
 import Image from "../Image.jsx";
 import "./SearchTripPage.css"; // Шлях до вашого CSS файлу
+import {data} from "autoprefixer";
 
 function SearchTripPage() {
     const [trips, setTrips] = useState([]);
@@ -11,7 +12,7 @@ function SearchTripPage() {
 
     useEffect(() => {
         // Отримання списку доступних дестінацій з сервера
-        axios.get('/tripManager/destinations')
+        axios.get('/destinationManager/destinations')
             .then(({ data }) => {
                 setDestinations(data);
             })
@@ -29,10 +30,12 @@ function SearchTripPage() {
                 limit: 2 // Display 5 trips per page
             }
         }).then(({ data }) => {
-            setTrips(data);
+            setTrips(data.trips);
         }).catch(error => {
             console.error('Помилка під час отримання списку подорожей:', error);
         });
+        
+        
     }, [searchParams]);
 
     const goToPage = (pageNumber) => {
@@ -78,7 +81,7 @@ function SearchTripPage() {
                 <select id="destination-select" className="sorting-select" onChange={handleDestinationChange} value={searchParams.get("destination") || ""}>
                     <option value="">Оберіть дестінацію</option>
                     {destinations.map(destination => (
-                        <option key={destination._id} value={destination._id}>{destination.name}</option>
+                        <option value={destination._id}>{destination.title}</option>
                     ))}
                 </select>
             </div>

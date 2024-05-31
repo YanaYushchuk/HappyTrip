@@ -1,13 +1,15 @@
 import { Link, useParams } from "react-router-dom";
-import { useEffect, useState } from "react";
+import { useEffect, useState, useContext } from "react";
 import axios from "axios";
 import TripGallery from "../TripGallery";
 import './TripPage.css';
 import CommentForm from "../CommentForm";
 import AddressLink from "../AddressLink";
+import { UserContext } from "../UserContext.jsx";
+import Ticket from "../Ticket";
 
 // Функція для обчислення тривалості подорожі
-function getTripDuration(startTime, finishTime) {
+function getTripDuration(startTime, finishTime) {    
     const start = new Date(startTime);
     const finish = new Date(finishTime);
 
@@ -22,6 +24,7 @@ function getTripDuration(startTime, finishTime) {
 }
 
 export default function TripPage() {
+    const { isSignedIn, onSubmit } = useContext(UserContext);
     const { id } = useParams();
     const [trip, setTrip] = useState(null);
 
@@ -75,8 +78,14 @@ export default function TripPage() {
                         );
                     })}
                 </div>
-                <CommentForm /> {/* Додання форми коментарів */}
-
+                {isSignedIn ? (
+                    // Якщо користувач зареєстрований, відображаємо іконку
+                    <Ticket onSubmit={onSubmit} trip={trip} />
+                ) : (
+                    // Якщо користувач не зареєстрований, відображаємо кнопку "Логін"
+                    <p>You are not logged in.</p>
+                )}
+                {/* <CommentForm /> Додання форми коментарів */}
             </div>
         </div>
     );

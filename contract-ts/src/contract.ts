@@ -1,4 +1,4 @@
-import { NearBindgen, near, call, view, Vector } from 'near-sdk-js'
+import { NearBindgen, near, call, view, Vector, AccountId } from 'near-sdk-js'
 import { Ticket } from './model'
 import { PostedMessage } from './model'
 
@@ -9,7 +9,7 @@ class TicketBook {
 
   @call({ payableFunction: true })
   buy_ticket({ price, text }: { price: string, text: string }) {
-    const sender = near.predecessorAccountId();
+    const sender: string = near.predecessorAccountId();
 
     const ticket: Ticket = { sender, price, text };
     this.instances.push(ticket);
@@ -17,8 +17,14 @@ class TicketBook {
 
 
   @view({})
-  get_tickets({ from_index = 0, limit = 10 }: { from_index: number, limit: number }): Ticket[] {
-    return this.instances.toArray().slice(from_index, from_index + limit);
+  get_tickets({ userId, from_index = 0, limit = 10 }: { userId: string, from_index: number, limit: number }): Ticket[] {
+    return this.instances.toArray().filter((ticket) => ticket.sender === userId).slice(from_index, from_index + limit);
+  }
+
+  @view({})
+  // Returns an array of messages.
+  get_all_tickets({}: {}): Ticket[] {
+    return this.instances.toArray();
   }
 
   @view({})

@@ -1,14 +1,16 @@
-import { useContext, useParams } from "react";
+import {useContext, useState} from "react";
 import { useNavigate } from "react-router-dom";
 import { UserContext } from "../UserContext.jsx";
 import Button from "@mui/material/Button";
+import {Link, Navigate, useParams} from "react-router-dom";
+import AccountNav from "../AccountNav";
 
 export default function AccountPage() {
     const { isSignedIn, signOut, user } = useContext(UserContext);
-    // let {subpage} = useParams();
-    // if (subpage === undefined) { 
-    // subpage = 'profile';
-    // }
+    let {subpage} = useParams();
+    if (subpage === undefined) { 
+    subpage = 'profile';
+    }
 
     //console.log(subpage);
 
@@ -23,21 +25,17 @@ export default function AccountPage() {
     console.log("Acc Page user = " + user);
     return (
         <div>
-            <nav className="w-full justify-center flex mt-8 gap-4">
-                {/* <Link className={linkClasses('profile')} to={'/account'}>Профіль</Link>
-                <Link className={linkClasses('bookings')} to={'/account/bookings'}>Мої бронювання</Link> */}
-            </nav>
-            <div>
-                <form>{isSignedIn &&
-                    <Button onClick={signOut} variant="contained" sx={{ borderRadius: "25px", width: "100%" }}>Log out</Button>
-                }
-                    <div className="text-center py-2 text-gray-500"></div>
-                </form>
-                <p>
-                    User : {user.user_id}
-                </p>
-            </div>
+      <AccountNav />
+      {subpage === 'profile' && (
+        <div className="text-center max-w-lg mx-auto">
+          Logged in as {user.user_id} <br />
+          <button onClick={signOut} className="primary max-w-sm mt-2">Logout</button>
         </div>
+      )}
+      {subpage === 'bookings' && (
+        <PlacesPage />
+      )}
+    </div>
     );
 }
 
