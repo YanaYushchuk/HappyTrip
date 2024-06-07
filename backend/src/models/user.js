@@ -3,9 +3,10 @@ const mongoose = require("mongoose");
 const Schema = mongoose.Schema;
 
 const UserSchema = new Schema({
-  user_id: {type: String, required: true},
+  user_id: { type: String, required: true },
   firstname: { type: String, required: false, maxLength: 100 },
-  lastname: { type: String, required: false, maxLength: 100 }
+  lastname: { type: String, required: false, maxLength: 100 },
+  role: { type: String, enum: ["user", "admin"], default: "user" } // Додане поле ролі
 });
 
 // Virtual for author's URL

@@ -1,71 +1,46 @@
+/* Ticket.css */
 
-  .ticket-fieldset {
-    border: none;
-  }
-  
-  .bigger-text {
-    font-size: 20px; /* Більший розмір шрифту */
-  }
-  
-  
-  .ticket-label {
-    font-weight: bold;
-  }
-  
-  .round-button {
-    background-color: #76adff; /* Зелений колір кнопки */
-    border: none;
-    color: white;
-    padding: 15px 32px;
-    text-align: center;
-    text-decoration: none;
-    display: inline-block;
-    font-size: 16px;
-    transition-duration: 0.4s;
-    cursor: pointer;
-    border-radius: 12px;
-    outline: none; /* Видаляє контур кнопки при фокусі */
-  }
-  
-  .ticket-form {
-    border: 2px solid #000;
-    padding: 20px;
-    border-radius: 10px;
-    width: fit-content;
-    margin: auto;
-    display: flex; /* Використовуємо flexbox */
-    flex-direction: column; /* Встановлюємо напрямок стовпця для елементів форми */
-    align-items: center; /* Центруємо елементи по горизонталі */
-  }
-  
-  .button-container {
-    margin-top: 20px;
-    display: flex; /* Використовуємо flexbox */
-    justify-content: center; /* Центруємо кнопку відносно форми */
-    width: 100%; /* Займає всю доступну ширину */
-  }
-  
-  .round-button {
-    margin: 0 5px; /* Додаємо невелику відстань між кнопками */
-  }
-  
+.ticket-container {
+  padding: 30px;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+}
 
+form {
+  margin: 0 auto;
+  width: 300px;
+}
 
-  .round-button:hover {
-    background-color: #002479; /* Темніший зелений колір при наведенні */
-  }
-  
-  .round-button:active {
-    background-color: #002480; /* Ще темніший колір при натисканні */
-  }
-  
-  .ticket-input {
-    margin-top: 5px;
-    width: 100%;
-  }
-  
-  .price-container {
-    margin-top: 10px;
-  }
-  
-  
+#fieldset {
+  padding: 20px;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+}
+
+/* input[type="number"] {
+  width: calc(100% - 20px);
+  margin-bottom: 10px;
+  padding: 5px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+} */
+
+button[type="submit"] {
+  width: 100%;
+  padding: 10px 0;
+  background-color: #007bff;
+  color: #fff;
+  border: none;
+  border-radius: 20px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+button[type="submit"]:hover {
+  background-color: #0056b3;
+}
+
+p {
+  font-weight: bold; /* Зробити текст жирним */
+  margin-bottom: 10px; /* Додати відступ вниз від параграфів */
+}

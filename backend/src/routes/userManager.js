@@ -12,5 +12,6 @@ router.get('/user/:id', user_controller.user_get);
 
 // PATCH запит для оновлення напрямку
 router.patch('/user/:id', user_controller.user_update);
+
 // Експортуємо роутер
 module.exports = router;

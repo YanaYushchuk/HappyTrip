@@ -20,7 +20,8 @@ exports.user_get = asyncHandler(async (req, res, next) => {
     }
 });
 
-// Обробка створення напрямку на POST-запит.
+
+
 exports.user_create_post = asyncHandler(async (req, res, next) => {
     const user_details = {
         user_id: req.body.user_id,
@@ -32,7 +33,7 @@ exports.user_create_post = asyncHandler(async (req, res, next) => {
     res.status(201).send(savedUser);
 });
 
-// Обробка оновлення напрямку на PATCH-запит.
+
 exports.user_update = asyncHandler(async (req, res, next) => {
     try {
         const user = await User.findOne({ user_id: req.params.id });
@@ -42,7 +43,7 @@ exports.user_update = asyncHandler(async (req, res, next) => {
 
         // Оновлення полів напрямку
         user.firstname = req.body.firstname || user.firstname;
-        user.lastname = req.body.lastname || destination.lastname;
+        user.lastname = req.body.lastname || user.lastname;
         // ... оновлення інших полів за необхідності
 
         const updatedUser = await user.save();
@@ -51,3 +52,5 @@ exports.user_update = asyncHandler(async (req, res, next) => {
         next(error);
     }
 });
+
+

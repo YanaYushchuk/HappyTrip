@@ -1,40 +1,54 @@
-import PropTypes from 'prop-types';
+import React, { useState, useContext } from 'react';
+import axios from "axios";
+import { UserContext } from './UserContext.jsx';
 
-export default function Form({ onSubmit, currentAccountId }) {
+
+const CommentForm = ({ tripId }) => {
+  console.log('tripId:', tripId); // Додайте цей рядок для перевірки
+  const { user } = useContext(UserContext);
+  const [comment, setComment] = useState('');
+  console.log('Comment:', comment);
+  console.log('User:', user);
+
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+
+    if (!tripId) {
+      console.error('tripId is undefined');
+      return;
+    }
+
+    try {
+      const response = await axios.post(`/trip/${tripId}/comments`, {
+        description: comment, // Використовуємо значення з стану comment
+        users: [user.user_id],
+        trips: [tripId],
+      });
+
+      console.log('Коментар успішно створено:', response.data);
+      // setComment(''); // Очищаємо текстове поле після успішного відправлення
+    } catch (error) {
+      console.error('Помилка під час створення коментаря:', error);
+    }
+  };
+
   return (
-    <form onSubmit={onSubmit}>
-      <fieldset id="fieldset">
-        <p>Sign the guest book, { currentAccountId }!</p>
-        <p className="highlight">
-          <label htmlFor="message">Message:</label>
-          <input
-            autoComplete="off"
-            autoFocus
-            id="message"
-            required
+    <div>
+      {user ? (
+        <form onSubmit={handleSubmit}>
+          <textarea
+            value={comment}
+            onChange={(e) => setComment(e.target.value)}
+            placeholder="Напишіть свій коментар..."
           />
-        </p>
-        <p>
-         
-          {/* <input
-            autoComplete="off"
-            defaultValue={'0'}
-            id="donation"
-            min="0"
-            step="0.01"
-            type="number"
-          /> */}
-          {/* <span title="NEAR Tokens">Ⓝ</span> */}
-        </p>
-        <button type="submit">
-          Sign
-        </button>
-      </fieldset>
-    </form>
+          <button type="submit">Відправити</button>
+        </form>
+      ) : (
+        <p>Будь ласка, авторизуйтесь для залишення коментаря.</p>
+      )}
+    </div>
   );
-}
-
-Form.propTypes = {
-  onSubmit: PropTypes.func.isRequired,
-  currentAccountId: PropTypes.string.isRequired
 };
+
+export default CommentForm;
