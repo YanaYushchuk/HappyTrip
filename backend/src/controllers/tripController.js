@@ -10,6 +10,7 @@ exports.trip_list = asyncHandler(async (req, res, next) => {
 
 exports.search_trips = asyncHandler(async (req, res) => {
     try {
+        console.log('Значення параметра date:', req.query.date);
         let query = Trip.find();
 
         // Фільтрація за пунктом призначення, якщо вказано
@@ -20,14 +21,30 @@ exports.search_trips = asyncHandler(async (req, res) => {
             }
         }
 
+        // Фільтрація за датою, якщо вказано
+        if (req.query.date) {
+            const startDate = new Date(req.query.date);
+            const endDate = new Date(req.query.date);
+            endDate.setDate(endDate.getDate() + 1); // Додаємо 1 день, щоб врахувати всі подорожі, які починаються в цей день
+            query = query.where('startTime').gte(startDate).lt(endDate);
+        }
+
         // Сортування за ціною або алфавітом
         let sortCriteria = {};
+
         if (req.query.price) {
             sortCriteria.price = req.query.price === 'desc' ? -1 : 1;
         }
+
         if (req.query.alphabetical) {
             sortCriteria.title = req.query.alphabetical === 'desc' ? -1 : 1;
         }
+
+        // Додавання сортування за датою, якщо вказано
+        if (req.query.date && !req.query.price) {
+            sortCriteria.startTime = req.query.date === 'desc' ? -1 : 1;
+        }
+
         if (Object.keys(sortCriteria).length !== 0) {
             query = query.sort(sortCriteria);
         }
@@ -44,7 +61,7 @@ exports.search_trips = asyncHandler(async (req, res) => {
 
         // Виконання запиту з пагінацією
         const trips = await query.exec();
-        
+
         // Лог для перевірки відповіді
         console.log('Запит:', req.query);
         console.log('Знайдено подорожей:', trips.length);
@@ -158,7 +175,7 @@ exports.trip_update = asyncHandler(async (req, res, next) => {
         trip.title = req.body.title || trip.title;
         trip.description = req.body.description || trip.description;
         trip.price = req.body.price || trip.price;
-   
+
         // ... оновити інші поля за необхідності
 
         // Зберегти оновлену подорож

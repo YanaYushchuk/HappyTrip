@@ -3,30 +3,36 @@ import './Ticket.css';
 
 export default function Ticket({ trip, onSubmit }) {
   return (
-    <form className="ticket-form" onSubmit={onSubmit}>
-      <fieldset id="fieldset" className="ticket-fieldset">
-        <div className="booking-heading">
-          <label className="ticket-label bigger-text">Бронювання</label>
-          <br />
-          <label htmlFor="title" className="ticket-label">Назва:</label>
+    <form onSubmit={onSubmit}>
+      <fieldset id="fieldset">
+        <div>
+          <p>Бронювання</p>
+          <h1>НАЗВА: </h1>
           <input
-            id="title"
-            type="text"
+            id="text"
             required
             disabled
             defaultValue={trip.title}
-            className="ticket-input"
           />
+          {/* <p id="text" value={trip.title} className="highlight">
+          {trip.title}
+        </p> */}
         </div>
-        <div className="price-container">
-          <label htmlFor="price" className="ticket-label">Ціна: <span className="highlight">{trip.price} Ⓝ</span></label>
+        <div>
+        <h1>ЦІНА: </h1>
+          <input
+            defaultValue={trip.price}
+            id="price"
+            type="number"
+            disabled
+          />
+          {/* <p id="price" value={trip.price} className="highlight">
+          {trip.price}
+        </p> */}
         </div>
-
-        <div className="button-container">
-          <button type="submit" className="round-button" onClick={onSubmit}>
-            Забронювати
-          </button>
-        </div>
+        <button type="submit">
+          Забронювати
+        </button>
       </fieldset>
     </form>
   );

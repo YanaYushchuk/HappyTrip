@@ -14,6 +14,7 @@ const mongoDB = "mongodb+srv://yana_yushchuk:23042003@cluster0.nrv7nib.mongodb.n
 const tripManagerRouter = require("./src/routes/tripManager");
 const destinationManagerRouter = require("./src/routes/destinationManager");
 const userManagerRouter = require("./src/routes/userManager");
+const commentManagerRouter = require("./src/routes/commentManager");  
 
 main().catch((err) => console.log(err));
 async function main() {
@@ -37,6 +38,7 @@ app.use(bodyParser.json())
 app.use("/tripManager", tripManagerRouter);
 app.use("/destinationManager", destinationManagerRouter);
 app.use("/userManager", userManagerRouter);
+app.use("/commentManager", commentManagerRouter);
 //Idiomatic expression in express to route and respond to a client request
 // Serve index.html at the root route
 app.get('/', (req, res) => {
@@ -53,15 +55,6 @@ app.use(function (req, res, next) {
     next(createError(404));
 });
 
-// app.use(function (err, req, res, next) {
-//     // set locals, only providing error in development
-//     res.locals.message = err.message;
-//     res.locals.error = req.app.get("env") === "development" ? err : {};
-
-//     // render the error page
-//     res.status(err.status || 500);
-//     res.render("error");
-// });
 
 module.exports = app;
 

@@ -8,6 +8,8 @@ import AddressLink from "../AddressLink";
 import { UserContext } from "../UserContext.jsx";
 import Ticket from "../Ticket";
 
+
+
 // Функція для обчислення тривалості подорожі
 function getTripDuration(startTime, finishTime) {    
     const start = new Date(startTime);
@@ -85,7 +87,10 @@ export default function TripPage() {
                     // Якщо користувач не зареєстрований, відображаємо кнопку "Логін"
                     <p>Щоб забронювати потрібно авторизуватися.</p>
                 )}
-                {/* <CommentForm />  */}
+               
+                <br/>
+                < CommentForm tripId={id} /> 
+                {console.log("tripId в TripPage:", id)}
             </div>
         </div>
     );

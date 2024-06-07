@@ -9,7 +9,7 @@ const TripSchema = new Schema({
   price: { type: Number, required: true },
   destinations: [{ type: Schema.Types.ObjectId, ref: "Destination"}],
   destinationSequences: [{ type: Schema.Types.ObjectId, ref: "DestinationSequence"}],
-  startPlace: [{ type: String, required: false}],
+  startPlace: { type: String, required: false},
   startTime: [{ type: Date, required: true}],
   finishTime: [{ type: Date, required: true}],
   photos: [{ type: String, required: true}]
